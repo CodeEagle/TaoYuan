@@ -59,7 +59,10 @@
 - `target_version`
 - `publish_to_store`
 
-目标仓库自身的 `update-image.yml` 仅负责和 `lzcat-trigger` 配合，保持补丁版 `content/` 与上游版本同步。
+目标仓库自身的 `update-image.yml` 负责两件事：
+
+1. 保持补丁版 `content/` 与上游版本同步。
+2. 将上游镜像同步到当前仓库自己的 `ghcr.io/codeeagle/taoyuan:v<version>`，供 `lzcat-trigger` 后续复制到 LazyCat 镜像源。
 
 `lzcat-trigger` 触发后的默认逻辑：
 

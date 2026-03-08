@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -89,6 +90,20 @@ jobs:
           cd /tmp/taoyuan-upstream
           git checkout "v$VERSION" 2>/dev/null || git checkout "$VERSION"
           bash "${{ github.workspace }}/scripts/build-patched-content.sh" /tmp/taoyuan-upstream "${{ github.workspace }}/content"
+
+      - name: Mirror upstream image to repository GHCR
+        if: steps.check-update.outputs.update_needed == 'true'
+        env:
+          VERSION: ${{ steps.resolve-version.outputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SOURCE_IMAGE="ghcr.io/setube/taoyuan:v$VERSION"
+          TARGET_IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:v$VERSION"
+
+          echo "$GH_TOKEN" | docker login ghcr.io -u "${GITHUB_REPOSITORY_OWNER}" --password-stdin
+          docker pull "$SOURCE_IMAGE"
+          docker tag "$SOURCE_IMAGE" "$TARGET_IMAGE"
+          docker push "$TARGET_IMAGE"
 
       - name: Commit synced content
         if: steps.check-update.outputs.update_needed == 'true'
