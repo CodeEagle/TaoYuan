@@ -59,13 +59,15 @@
 - `target_version`
 - `publish_to_store`
 
-默认逻辑：
+目标仓库自身的 `update-image.yml` 仅负责和 `lzcat-trigger` 配合，保持补丁版 `content/` 与上游版本同步。
+
+`lzcat-trigger` 触发后的默认逻辑：
 
 1. 读取上游最新 GitHub Release。
-2. 解析并确认上游镜像标签。
-3. 将官方镜像复制到 LazyCat 镜像源。
-4. 拉取对应上游源码版本，自动应用“新游戏立即存档”补丁并重建前端静态资源。
-5. 回写 `lzc-manifest.yml` 的 `version` 和 `image`，同步更新 `content/`。
+2. 触发当前仓库的 `update-image.yml`，拉取对应上游源码版本并重建补丁版 `content/`。
+3. 解析并确认上游镜像标签。
+4. 将官方镜像复制到 LazyCat 镜像源。
+5. 回写 `lzc-manifest.yml` 的 `version` 和 `image`。
 6. 构建 `.lpk`，并发布到当前仓库的 GitHub Release。
 
 ## 本地校验建议
