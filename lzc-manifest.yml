@@ -16,7 +16,7 @@ application:
       backend: http://taoyuan-web:80/
 services:
   taoyuan-web:
-    image: registry.lazycat.cloud/invokerlaw/setube/taoyuan:d11edacc5ebd52cf
+    image: registry.lazycat.cloud/invokerlaw/codeeagle/taoyuan:2c527085760092f7
     environment: []
     binds: []
     setup_script: |
