@@ -64,8 +64,9 @@
 1. 读取上游最新 GitHub Release。
 2. 解析并确认上游镜像标签。
 3. 将官方镜像复制到 LazyCat 镜像源。
-4. 回写 `lzc-manifest.yml` 的 `version` 和 `image`。
-5. 构建 `.lpk`，并发布到当前仓库的 GitHub Release。
+4. 拉取对应上游源码版本，自动应用“新游戏立即存档”补丁并重建前端静态资源。
+5. 回写 `lzc-manifest.yml` 的 `version` 和 `image`，同步更新 `content/`。
+6. 构建 `.lpk`，并发布到当前仓库的 GitHub Release。
 
 ## 本地校验建议
 

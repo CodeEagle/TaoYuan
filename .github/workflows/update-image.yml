@@ -162,6 +162,17 @@ jobs:
           sed -i "s/^version:.*/version: $VERSION/" lzc-manifest.yml
           sed -i "s|image: .*|image: $IMAGE|" lzc-manifest.yml
 
+      - name: Build patched static content
+        if: steps.check-update.outputs.update_needed == 'true'
+        env:
+          VERSION: ${{ steps.resolve-version.outputs.version }}
+        run: |
+          rm -rf /tmp/taoyuan-upstream
+          git clone https://github.com/${{ env.UPSTREAM_REPO }}.git /tmp/taoyuan-upstream
+          cd /tmp/taoyuan-upstream
+          git checkout "v$VERSION" 2>/dev/null || git checkout "$VERSION"
+          bash "${{ github.workspace }}/scripts/build-patched-content.sh" /tmp/taoyuan-upstream "${{ github.workspace }}/content"
+
       - name: Build lpk
         if: steps.check-update.outputs.update_needed == 'true'
         env:
@@ -202,7 +213,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add lzc-manifest.yml
+          git add lzc-manifest.yml content
 
           if git diff --cached --quiet; then
             exit 0
