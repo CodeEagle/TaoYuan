@@ -1,6 +1,7 @@
 # Build output
 *.lpk
 content.tar
+upstream-src/
 
 # IDE
 .idea/

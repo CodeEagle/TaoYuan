@@ -19,6 +19,11 @@ services:
     image: registry.lazycat.cloud/invokerlaw/setube/taoyuan:d11edacc5ebd52cf
     environment: []
     binds: []
+    setup_script: |
+      if [ -f /lzcapp/pkg/content/index.html ]; then
+        rm -rf /usr/share/nginx/html/*
+        cp -R /lzcapp/pkg/content/. /usr/share/nginx/html/
+      fi
 locales:
   en:
     name: TaoYuan
