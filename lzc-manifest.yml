@@ -16,7 +16,7 @@ application:
       backend: http://taoyuan-web:80/
 services:
   taoyuan-web:
-    image: ghcr.io/setube/taoyuan:2.2.0
+    image: registry.lazycat.cloud/invokerlaw/setube/taoyuan:d11edacc5ebd52cf
     environment: []
     binds: []
 locales:
