@@ -51,6 +51,10 @@ path.write_text(text)
 PY
 
 cd "$UPSTREAM_SRC_DIR"
+if ! command -v pnpm >/dev/null 2>&1; then
+  corepack enable
+  corepack prepare pnpm@latest --activate
+fi
 pnpm install --frozen-lockfile
 pnpm build
 
