@@ -3,7 +3,7 @@ package: fun.selfstudio.app.migration.taoyuan
 version: 2.2.0
 min_os_version: 1.3.8
 name: TaoYuan
-description: (LazyCat) Chinese pastoral life sim game running fully in the browser
+description: (LazyCat Auto-build) Chinese pastoral life sim game running fully in the browser
 license: CC-BY-NC-4.0
 homepage: https://github.com/setube/taoyuan
 author: setube
@@ -27,7 +27,7 @@ services:
 locales:
   en:
     name: TaoYuan
-    description: (LazyCat) Chinese pastoral life sim game that runs without a backend
+    description: (LazyCat Auto-build) Chinese pastoral life sim game that runs without a backend
   zh:
     name: 桃源乡
-    description: （懒猫）纯前端运行的中文田园模拟经营游戏
+    description: （懒猫微服自动构建）纯前端运行的中文田园模拟经营游戏
